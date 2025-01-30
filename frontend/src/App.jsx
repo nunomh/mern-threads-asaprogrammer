@@ -1,7 +1,7 @@
 import { Container } from '@chakra-ui/react';
 import { Routes, Route } from 'react-router-dom';
-import UserPage from './components/UserPage';
-import PostPage from './components/PostPage';
+import UserPage from './pages/UserPage';
+import PostPage from './pages/PostPage';
 import Header from './components/Header';
 
 function App() {
