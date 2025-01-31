@@ -11,11 +11,23 @@ import {
     Text,
     VStack,
     useColorModeValue,
+    useToast,
 } from '@chakra-ui/react';
 import { BsInstagram } from 'react-icons/bs';
 import { CgMoreO } from 'react-icons/cg';
 
 const UserHeader = () => {
+    const toast = useToast();
+    const copyUrl = () => {
+        const currentURL = window.location.href;
+        navigator.clipboard.writeText(currentURL).then(() => {
+            toast({
+                title: 'Link copied to clipboard',
+                status: 'success',
+            });
+        });
+    };
+
     return (
         <VStack gap={4} alignItems={'start'}>
             <Flex justifyContent={'space-between'} w={'full'}>
@@ -54,7 +66,9 @@ const UserHeader = () => {
                             </MenuButton>
                             <Portal>
                                 <MenuList bg={useColorModeValue('gray.200', 'gray.dark')}>
-                                    <MenuItem bg={useColorModeValue('gray.200', 'gray.dark')}>Copy link</MenuItem>
+                                    <MenuItem bg={useColorModeValue('gray.200', 'gray.dark')} onClick={copyUrl}>
+                                        Copy link
+                                    </MenuItem>
                                 </MenuList>
                             </Portal>
                         </Menu>
