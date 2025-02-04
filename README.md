@@ -17,5 +17,11 @@ npm run dev
 ## Backend
 
 -   Node.js
--   Express
+    -   Express
+    -   jsonwebtoken
+    -   bcrypt
+    -   dotenv
+    -   mongoose
+    -   cookie-parser
+    -   nodemon (dev)
 -   MongoDB
