@@ -79,4 +79,34 @@ const logoutUser = async (req, res) => {
     }
 };
 
-export { signupUser, loginUser, logoutUser };
+// Follow and unfollow user
+const followUnfollowUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const userToModify = await User.findById(id);
+        const currentUser = await User.findById(req.user._id);
+
+        if (!currentUser || !userToModify) return res.status(404).json({ error: 'User not found' });
+        if (id === req.user._id) return res.status(400).json({ error: 'You cannot follow/unfollow yourself' });
+
+        if (currentUser.following.includes(id)) {
+            // Unfollow user
+            // Modify current user following and userToModify followers
+            await User.findByIdAndUpdate(req.user._id, { $pull: { following: id } });
+            await User.findByIdAndUpdate(id, { $pull: { followers: req.user._id } });
+            res.status(200).json({ message: 'User unfollowed successfully' });
+        } else {
+            // Follow user
+            // Modify current user following and userToModify followers
+            await User.findByIdAndUpdate(req.user._id, { $push: { following: id } });
+            await User.findByIdAndUpdate(id, { $push: { followers: req.user._id } });
+            res.status(200).json({ message: 'User followed successfully' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log('Error in followUnfollowUser: ', error.message);
+    }
+};
+
+export { signupUser, loginUser, logoutUser, followUnfollowUser };

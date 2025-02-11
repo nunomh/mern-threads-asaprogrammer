@@ -20,3 +20,6 @@ Content-Type: application/json
 
 ### Users - Logout
 POST http://localhost:3000/api/users/logout
+
+### User - Follow / Unfollow
+POST http://localhost:3000/api/users/follow/67a9e357f61c910f68ed0412
