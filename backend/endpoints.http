@@ -23,3 +23,11 @@ POST http://localhost:3000/api/users/logout
 
 ### User - Follow / Unfollow
 POST http://localhost:3000/api/users/follow/67a9e357f61c910f68ed0412
+
+### User - Update
+POST http://localhost:3000/api/users/update/67a9e2b2f61c910f68ed040d
+Content-Type: application/json
+
+{
+    "username": "johdoe"
+}
