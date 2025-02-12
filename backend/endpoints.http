@@ -43,3 +43,12 @@ Content-Type: application/json
     "postedBy": "67a9e2b2f61c910f68ed040d",
     "text": "this is my first post"
 }
+
+### Posts - Get Post
+GET http://localhost:3000/api/posts/67acd0bb1457af6dffa501be
+
+### Posts - Delete
+DELETE http://localhost:3000/api/posts/67acd0bb1457af6dffa501be
+
+### Posts - Like / Unlike
+POST http://localhost:3000/api/posts/like/67acd59b1c884aa21ad911ed
