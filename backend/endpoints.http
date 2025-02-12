@@ -1,3 +1,6 @@
+### Users - Profile
+GET http://localhost:3000/api/users/profile/johndoe
+
 ### Users - SignUp
 POST http://localhost:3000/api/users/signup
 Content-Type: application/json
@@ -30,4 +33,13 @@ Content-Type: application/json
 
 {
     "username": "johdoe"
+}
+
+### Posts - Create
+POST http://localhost:3000/api/posts/create
+Content-Type: application/json
+
+{
+    "postedBy": "67a9e2b2f61c910f68ed040d",
+    "text": "this is my first post"
 }
