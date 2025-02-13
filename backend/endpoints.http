@@ -1,3 +1,5 @@
+######## USERS
+
 ### Users - Profile
 GET http://localhost:3000/api/users/profile/johndoe
 
@@ -17,7 +19,7 @@ POST http://localhost:3000/api/users/login
 Content-Type: application/json
 
 {
-    "username": "johdoe",
+    "username": "johndoe2",
     "password": "12345"
 }
 
@@ -34,6 +36,12 @@ Content-Type: application/json
 {
     "username": "johdoe"
 }
+
+
+######## POSTS
+
+### Posts - Feed
+GET http://localhost:3000/api/posts/feed
 
 ### Posts - Create
 POST http://localhost:3000/api/posts/create
@@ -52,3 +60,11 @@ DELETE http://localhost:3000/api/posts/67acd0bb1457af6dffa501be
 
 ### Posts - Like / Unlike
 POST http://localhost:3000/api/posts/like/67acd59b1c884aa21ad911ed
+
+### Posts - Comment
+POST http://localhost:3000/api/posts/reply/67acd56647e4bf5bd3581f92
+Content-Type: application/json
+
+{
+	"text": "this is my first comment"
+}
