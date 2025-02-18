@@ -14,6 +14,8 @@ import {
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import userAtom from '../atoms/userAtom';
+import { useRef } from 'react';
+import usePreviewImg from '../hooks/usePreviewImg';
 
 const UpdateProfilePage = () => {
     const [user, setUser] = useRecoilState(userAtom);
@@ -25,6 +27,10 @@ const UpdateProfilePage = () => {
         bio: user.bio,
         password: '',
     });
+
+    const fileRef = useRef(null);
+
+    const { handleImageChange, imgUrl } = usePreviewImg();
 
     return (
         <Flex minH={'100vh'} align={'center'} justify={'center'}>
@@ -44,10 +50,13 @@ const UpdateProfilePage = () => {
                 <FormControl>
                     <Stack direction={['column', 'row']} spacing={6}>
                         <Center>
-                            <Avatar size="xl" src={user.profilePic} />
+                            <Avatar size="xl" src={imgUrl || user.profilePic} />
                         </Center>
                         <Center w="full">
-                            <Button w="full">Change Icon</Button>
+                            <Button w="full" onClick={() => fileRef.current.click()}>
+                                Change Icon
+                            </Button>
+                            <Input type="file" hidden ref={fileRef} onChange={handleImageChange} />
                         </Center>
                     </Stack>
                 </FormControl>
