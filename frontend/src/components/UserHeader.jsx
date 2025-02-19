@@ -16,7 +16,7 @@ import {
 import { BsInstagram } from 'react-icons/bs';
 import { CgMoreO } from 'react-icons/cg';
 
-const UserHeader = () => {
+const UserHeader = ({ user }) => {
     const toast = useToast();
     const copyUrl = () => {
         const currentURL = window.location.href;
@@ -33,32 +33,44 @@ const UserHeader = () => {
             <Flex justifyContent={'space-between'} w={'full'}>
                 <Box>
                     <Text fontSize={'2xl'} fontWeight={'bold'}>
-                        Mark Zuckerberg
+                        {user.name}
                     </Text>
                     <Flex gap={2} alignItems={'center'}>
                         <Text fontSize={'sm'} bg={'gray.dark'} color={'gray.light'} p={1} borderRadius={'full'}>
-                            @zuck
+                            @{user.username}
                         </Text>
                         <Text fontSize={'sm'}>·</Text>
-                        <Text fontSize={'sm'}>1.2M followers</Text>
+                        <Text fontSize={'sm'}>{user.followers.length} followers</Text>
                     </Flex>
                 </Box>
                 <Box>
-                    <Avatar
-                        name="Mark Zuckerberg"
-                        src="/zuck-avatar.png"
-                        size={{
-                            base: 'md',
-                            md: 'xl',
-                        }}
-                    />
+                    {user.profilePic && (
+                        <Avatar
+                            name={user.name}
+                            src={user.profilePic}
+                            size={{
+                                base: 'md',
+                                md: 'xl',
+                            }}
+                        />
+                    )}
+                    {!user.profilePic && (
+                        <Avatar
+                            name={user.name}
+                            src="https://bit.ly/broken-link"
+                            size={{
+                                base: 'md',
+                                md: 'xl',
+                            }}
+                        />
+                    )}
                 </Box>
             </Flex>
 
-            <Text>Co-founder, executive chairman and CEO of Metal Platform</Text>
+            <Text>{user.bio}</Text>
             <Flex w={'full'} justifyContent={'space-between'}>
                 <Flex gap={2} alignItems={'center'}>
-                    <Text color={'gray.light'}>3.2K followers</Text>
+                    <Text color={'gray.light'}>{user.followers.length} followers</Text>
                     <Box w={1} h={1} bg={'gray.light'} borderRadius={'full'}></Box>
                     <Link color={'gray.light'}>instagram.com</Link>
                 </Flex>
