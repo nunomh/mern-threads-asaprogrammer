@@ -20,6 +20,7 @@ import useShowToast from '../hooks/useShowToast';
 
 const UpdateProfilePage = () => {
     const [user, setUser] = useRecoilState(userAtom);
+    const [updating, setUpdating] = useState(false);
 
     const [inputs, setInputs] = useState({
         name: user.name,
@@ -37,6 +38,8 @@ const UpdateProfilePage = () => {
 
     const handleSubmit = async e => {
         e.preventDefault();
+        if (updating) return;
+        setUpdating(true);
 
         try {
             const res = await fetch(`/api/users/update/${user._id}`, {
@@ -57,6 +60,8 @@ const UpdateProfilePage = () => {
             localStorage.setItem('user-threads', JSON.stringify(data));
         } catch (error) {
             showToast('Error', error.message, 'error');
+        } finally {
+            setUpdating(false);
         }
     };
 
@@ -152,6 +157,7 @@ const UpdateProfilePage = () => {
                                 bg: 'blue.500',
                             }}
                             type="submit"
+                            isLoading={updating}
                         >
                             Submit
                         </Button>

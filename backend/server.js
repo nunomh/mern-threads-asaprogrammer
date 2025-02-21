@@ -21,7 +21,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-app.use(express.json()); // Middleware to parse JSON data in the req.body
+app.use(express.json({ limit: '50mb' })); // Middleware to parse JSON data in the req.body
 app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded data in the req.body
 app.use(cookieParser()); // Middleware to parse cookies in the req.headers
 
