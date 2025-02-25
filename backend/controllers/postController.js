@@ -95,6 +95,10 @@ const deletePost = async (req, res) => {
             return res.status(401).json({ error: 'Unauthorized to delete post' });
         }
 
+        if (post.img) {
+            await cloudinary.uploader.destroy(post.img.split('/').pop().split('.')[0]);
+        }
+
         await post.deleteOne();
         res.status(200).json({ message: 'Post deleted successfully' });
     } catch (error) {
@@ -168,4 +172,20 @@ const replyToPost = async (req, res) => {
     }
 };
 
-export { getFeedPosts, createPost, getPost, deletePost, likeUnlikePost, replyToPost };
+const getUserPosts = async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const posts = await Post.find({ postedBy: user._id }).sort({ createdAt: -1 });
+        res.status(200).json(posts);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log('Error in getUserPosts: ', error.message);
+    }
+};
+
+export { getFeedPosts, createPost, getPost, deletePost, likeUnlikePost, replyToPost, getUserPosts };
