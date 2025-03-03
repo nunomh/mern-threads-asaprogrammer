@@ -126,7 +126,9 @@ const Post = ({ post, postedBy }) => {
                             </Text>
                             {/* <BsThreeDots /> */}
 
-                            {currentUser?._id === user._id && <DeleteIcon size={20} onClick={handleDeletePost} />}
+                            {currentUser?._id === user._id && (
+                                <DeleteIcon size={20} cursor={'pointer'} onClick={handleDeletePost} />
+                            )}
                         </Flex>
                     </Flex>
 
