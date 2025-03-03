@@ -1,11 +1,20 @@
-import { Avatar, Flex, Img, Text, Box, Image, Divider, Button } from '@chakra-ui/react';
+import { Avatar, Flex, Img, Text, Box, Image, Divider, Button, Spinner } from '@chakra-ui/react';
 import { BsThreeDots } from 'react-icons/bs';
 import PostActions from '../components/PostActions';
-import { useState } from 'react';
 import Comment from '../components/Comment';
+import useGetUserProfile from '../hooks/useGetUserProfile';
 
 const PostPage = () => {
-    const [liked, setLiked] = useState(false);
+    const { loading, user } = useGetUserProfile();
+
+    if (!user && loading) {
+        return (
+            <Flex justifyContent={'center'}>
+                <Spinner size={'xl'} />
+            </Flex>
+        );
+    }
+
     return (
         <>
             <Flex>
@@ -30,7 +39,7 @@ const PostPage = () => {
                 <Image src={'/post1.png'} w={'full'} />
             </Box>
             <Flex gap={3} my={3}>
-                <PostActions liked={liked} setLiked={setLiked} />
+                <PostActions post={post} />
             </Flex>
             <Flex gap={2} alignItems={'center'}>
                 <Text color={'gray.light'} fontSize={'sm'}>
@@ -52,30 +61,14 @@ const PostPage = () => {
             </Flex>
 
             <Divider my={4} />
-            <Comment
+            {/* <Comment
                 comment="comment 1"
                 createdAt="1d"
                 likes={10}
                 replies={2}
                 username="johndoe"
                 userAvatar="https://bit.ly/dan-abramov"
-            />
-            <Comment
-                comment="comment 2"
-                createdAt="2d"
-                likes={12}
-                replies={3}
-                username="sallydoe"
-                userAvatar="https://bit.ly/code-beast"
-            />
-            <Comment
-                comment="comment 3"
-                createdAt="3d"
-                likes={13}
-                replies={4}
-                username="joedoe"
-                userAvatar="https://bit.ly/sage-adebayo"
-            />
+            /> */}
         </>
     );
 };
