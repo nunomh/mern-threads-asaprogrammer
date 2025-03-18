@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import generateTokenAndSetCookie from '../utils/helpers/generateTokenAndSetCookie.js';
 import { v2 as cloudinary } from 'cloudinary';
 import { mongoose } from 'mongoose';
+import Post from '../models/postModel.js';
 
 // Get user profile
 const getUserProfile = async (req, res) => {
@@ -180,6 +181,13 @@ const updateUser = async (req, res) => {
         user.bio = bio || user.bio;
 
         await user.save();
+
+        // Find all posts by user and update username and profilePic
+        await Post.updateMany(
+            { 'replies.userId': userId },
+            { $set: { 'replies.$[reply].username': user.username, 'replies.$[reply].profilePic': user.profilePic } },
+            { arrayFilters: [{ 'reply.userId': userId }] }
+        );
 
         user.password = undefined;
         user.updatedAt = undefined;
